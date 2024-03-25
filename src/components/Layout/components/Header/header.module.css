@@ -1,0 +1,40 @@
+.header {
+   padding: 10px 5px;
+   /* border-bottom: 1px solid silver; */
+   box-shadow: 0 0 5px 1px silver;
+}
+
+.nav {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+
+
+.navList {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   list-style: none;
+   font-size: 18px;
+}
+
+.navList a {
+   text-decoration: none;
+   color: black;
+}
+
+.navList a:hover {
+   text-decoration: underline;
+   color: rgb(0, 147, 147);
+}
+
+.navList a.active {
+   color: rgb(0, 147, 147);
+   text-decoration: underline;
+}
+
+.logImg {
+   width: 30px;
+}

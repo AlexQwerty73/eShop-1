@@ -1,0 +1,75 @@
+{
+   "products": [
+      {
+         "id": "qweim",
+         "name": "Product 1",
+         "price": 5.99,
+         "currency": "USD",
+         "category": [
+            "Electronics"
+         ],
+         "description": "This is product one.",
+         "inventory": 10,
+         "rating": 4.3,
+         "reviews": [
+            {
+               "username": "John Doe",
+               "stars": 5,
+               "review": "Great product!",
+               "date": "2021-07-16T18:30:00"
+            }
+         ],
+         "images": [],
+         "variants": [
+            "color:blue"
+         ],
+         "options": [],
+         "is_available": true,
+         "created_at": "2021-07-16T18:30:00Z",
+         "updated_at": "2021-07-16T18:30:00Z"
+      },
+      {
+         "id": "rgvbw",
+         "name": "Product 2",
+         "price": 5.99,
+         "currency": "USD",
+         "category": [
+            "Electronics"
+         ],
+         "description": "This is product one.",
+         "inventory": 20,
+         "rating": 4.3,
+         "reviews": [
+            {
+               "username": "John Doe",
+               "stars": 5,
+               "review": "Great product!",
+               "date": "2021-07-16T18:30:00"
+            }
+         ],
+         "images": [],
+         "variants": [
+            "color:blue"
+         ],
+         "options": [],
+         "is_available": true,
+         "created_at": "2021-07-16T18:30:00Z",
+         "updated_at": "2021-07-16T18:30:00Z"
+      }
+   ],
+   "users": [
+      {
+         "id": "johnnyappleseed",
+         "first_name": "John",
+         "last_name": "Appleseed",
+         "password": "jony",
+         "email": "john@example.com",
+         "addresses": [
+            "addres 1"
+         ],
+         "published_products": [],
+         "created_at": "2021-07-16T18:30:00Z",
+         "updated_at": "2021-07-16T18:30:00Z"
+      }
+   ]
+}

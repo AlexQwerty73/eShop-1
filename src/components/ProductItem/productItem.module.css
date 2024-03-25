@@ -1,0 +1,27 @@
+.product {
+   border: 1px solid #ccc;
+   padding: 16px;
+   margin: 10px;
+}
+
+.name {
+   font-size: 20px;
+   font-weight: bold;
+   margin-bottom: 8px;
+}
+
+.price {
+   font-size: 16px;
+   font-weight: bold;
+   margin-bottom: 8px;
+}
+
+.inventory {
+   font-size: 14px;
+   margin-bottom: 8px;
+}
+
+.rating {
+   font-size: 14px;
+   font-weight: bold;
+}
