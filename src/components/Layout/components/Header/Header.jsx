@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Img, Logo } from '../../../common';
 import s from './header.module.css';
 import { Link, NavLink } from 'react-router-dom';
 import { loadFromLocalStorage } from '../../../../utils';
 
 export const Header = () => {
-
-   const loggedinUser = loadFromLocalStorage('userId');
+   const [loggedinUser, setLoggedinUser] = useState(loadFromLocalStorage('user'));
+   console.log(loggedinUser);
 
    const links = [
       { path: '/', text: "Home" },
       { path: '/profile', text: "Profile" },
    ]
+
+   const logOutFromStorage = () => {
+      localStorage.removeItem('user');
+      setLoggedinUser(null);
+   }
 
    return (
       <header className={s.header}>
@@ -31,8 +36,8 @@ export const Header = () => {
                      <div className={s.logImg}>
                         {
                            loggedinUser || ''
-                              ? <Link to='/login'><Img folder='log' img='in.png' /></Link>
-                              : <Img folder='log' img='out.png' link='#' />
+                              ? <div onClick={logOutFromStorage}> <Img folder='log' img='out.png' /></div>
+                              : <Link to='/login'><Img folder='log' img='in.png' /></Link>
                         }
                      </div>
                   </li>
