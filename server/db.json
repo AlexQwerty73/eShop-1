@@ -5,18 +5,28 @@
       "name": "Product 1",
       "price": 5.99,
       "currency": "USD",
+      "imgs": [
+        "product1-1.png",
+        "product1-2.png"
+      ],
       "category": [
         "Electronics"
       ],
       "description": "This is product one.",
-      "inventory": 10,
-      "rating": 4.3,
+      "inventory": 40,
+      "rating": 5,
       "reviews": [
         {
           "username": "John Doe",
           "stars": 5,
           "review": "Great product!",
           "date": "2021-07-16T18:30:00"
+        },
+        {
+          "username": "John Hue",
+          "stars": 4,
+          "review": "Great product!",
+          "date": "2022-07-16T18:00:00"
         }
       ],
       "images": [],
@@ -33,12 +43,13 @@
       "name": "Product 2",
       "price": 5.99,
       "currency": "USD",
+      "imgs": [],
       "category": [
         "Electronics"
       ],
       "description": "This is product one.",
       "inventory": 20,
-      "rating": 4.3,
+      "rating": 5,
       "reviews": [
         {
           "username": "John Doe",

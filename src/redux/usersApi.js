@@ -12,10 +12,13 @@ export const usersApi = createApi({
    endpoints: (build) => ({
       getUsers: build.query({
          query: (id = '') => `${resource}/${id}`,
-         providesTags: (result) => [
-            ...(result || []).map(({ id }) => ({ type: typeTag, id })),
-            { type: typeTag, id: 'LIST' },
-         ],
+         providesTags: (result) =>
+            result && Array.isArray(result)
+               ? [
+                  ...result.map(({ id }) => ({ type: typeTag, id })),
+                  { type: typeTag, id: 'LIST' },
+               ]
+               : [{ type: typeTag, id: 'LIST' }],
       }),
 
       addUser: build.mutation({

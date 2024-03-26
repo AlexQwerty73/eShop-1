@@ -18,6 +18,8 @@
    gap: 10px;
    list-style: none;
    font-size: 18px;
+   padding: 0;
+   margin: 0;
 }
 
 .navList a {
@@ -37,5 +39,5 @@
 
 .logImg {
    width: 30px;
+   cursor: pointer;
 }
-

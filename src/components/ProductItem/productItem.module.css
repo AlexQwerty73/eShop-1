@@ -25,3 +25,12 @@
    font-size: 14px;
    font-weight: bold;
 }
+
+.img {
+   width: 100px;
+}
+
+.product a {
+   text-decoration: none;
+   color: black;
+}

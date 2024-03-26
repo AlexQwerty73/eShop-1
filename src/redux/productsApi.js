@@ -12,10 +12,13 @@ export const productsApi = createApi({
    endpoints: (build) => ({
       getProducts: build.query({
          query: (id = '') => `${resource}/${id}`,
-         providesTags: (result) => [
-            ...(result || []).map(({ id }) => ({ type: typeTag, id })),
-            { type: typeTag, id: 'LIST' },
-         ],
+         providesTags: (result) =>
+            result && Array.isArray(result)
+               ? [
+                  ...result.map(({ id }) => ({ type: typeTag, id })),
+                  { type: typeTag, id: 'LIST' },
+               ]
+               : [{ type: typeTag, id: 'LIST' }],
       }),
 
    }),

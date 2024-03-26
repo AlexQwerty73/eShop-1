@@ -1,0 +1,88 @@
+.p {
+   /* width: 100px; */
+}
+
+.basicInfo {
+   display: flex;
+   gap: 20px;
+   padding: 20px;
+
+}
+
+.carousel {
+   width: 400px;
+}
+
+.productInfo {
+   padding: 20px;
+}
+
+.rating {
+   font-size: 20px;
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   gap: 10px;
+}
+
+.btn_buy {
+   padding: 10px 20px;
+   background: rgb(37, 185, 11);
+   border: none;
+   /* border-radius: 20px; */
+   color: white;
+   font-weight: bold;
+   display: flex;
+   gap: 10px;
+   justify-content: center;
+   align-items: center;
+
+}
+
+.opac_05 {
+   opacity: .5;
+}
+
+.cartImg {
+   width: 30px;
+   filter: invert(1);
+}
+
+
+.btn_buy:not(.opac_05):hover {
+   cursor: pointer;
+   opacity: .8;
+}
+
+.btnShowHideReviews {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+
+   cursor: pointer;
+}
+
+.arrow {
+   width: 50px;
+}
+
+.reviews {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.review {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   border: 1px solid silver;
+   padding: 20px;
+}
+
+.review__header {
+   display: flex;
+   align-items: center;
+   gap: 5px;
+}

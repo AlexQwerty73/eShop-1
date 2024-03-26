@@ -1,0 +1,6 @@
+.carousel-control-prev-icon,
+.carousel-control-next-icon,
+.carousel-indicators {
+   filter: invert(1);
+   /* Це змінить колір стрілок на чорний */
+}
