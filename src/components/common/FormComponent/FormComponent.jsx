@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './formComponent.module.css';
-import { Currency, Number, Name, Surname, Email, Password, Phone, PIN, CardCategory, CardType, Address, Amount, UserCards } from './labels';
+import { Currency, Number, First_name, Last_name, Email, Password, Phone, PIN, CardCategory, CardType, Address, Amount, UserCards } from './labels';
 
 export const FormComponent = ({ inputs, onSubmit }) => {
    const { register, handleSubmit, formState: { errors } } = useForm();
@@ -15,9 +15,9 @@ export const FormComponent = ({ inputs, onSubmit }) => {
                case 'number':
                   return <Number key={input} register={register} errors={errors} required />;
                case 'name':
-                  return <Name key={input} register={register} errors={errors} required />;
+                  return <First_name key={input} register={register} errors={errors} required />;
                case 'surname':
-                  return <Surname key={input} register={register} errors={errors} required />;
+                  return <Last_name key={input} register={register} errors={errors} required />;
                case 'email':
                   return <Email key={input} register={register} errors={errors} required />;
                case 'password':

@@ -1,0 +1,10 @@
+.text {
+   font-size: 24px;
+   padding: 50px;
+}
+
+.goback {
+   text-decoration: underline;
+   color: blue;
+   cursor: pointer;
+}

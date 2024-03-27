@@ -1,0 +1,64 @@
+.profile {
+   max-width: 400px;
+   margin: 50px auto;
+   padding: 20px;
+   border: 1px solid #ccc;
+   border-radius: 8px;
+   background-color: #f9f9f9;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+   font-size: 24px;
+   margin-bottom: 20px;
+}
+
+.item {
+   margin-bottom: 15px;
+}
+
+.label {
+   font-weight: bold;
+}
+
+.value {
+   margin-left: 10px;
+}
+
+.input {
+   width: 100%;
+   padding: 8px;
+   border: 1px solid #ccc;
+   /* border-radius: 5px; */
+   margin-top: 5px;
+}
+
+.button {
+   padding: 10px 20px;
+   margin-top: 20px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 16px;
+   font-weight: bold;
+}
+
+.btn {
+   width: 100%;
+   padding: 10px;
+   border: none;
+   color: white;
+   font-weight: bold;
+}
+
+.btn:hover {
+   opacity: .8;
+}
+
+.saveButton {
+   background-color: #4caf50;
+}
+
+.editButton {
+   background-color: #2196f3;
+}

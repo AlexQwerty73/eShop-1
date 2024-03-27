@@ -31,7 +31,7 @@ export const PageSingup = () => {
 
             <div className={s.form}>
                <FormComponent
-                  inputs={['name', 'surname', 'email', 'password', 'address']}
+                  inputs={['first_name', 'last_name', 'email', 'password', 'address']}
                   onSubmit={onSubmit}
                />
             </div>

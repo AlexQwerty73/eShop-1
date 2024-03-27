@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from './components/';
-import { PageHome, PageLogin, PageNotFound, PageProduct, PageSingup } from './pages/';
+import { PageHome, PageLogin, PageNotFound, PageProduct, PageProfile, PageSingup } from './pages/';
 
 const App = () => {
   return (
@@ -16,7 +16,7 @@ const App = () => {
           </Route>
 
           <Route path='profile/'>
-            <Route path=':userId' />{/*  */}
+            <Route path=':userId' element={<PageProfile />} />{/*  */}
           </Route>
 
         </Route>

@@ -15,7 +15,7 @@
 .navList {
    display: flex;
    align-items: center;
-   gap: 10px;
+   gap: 20px;
    list-style: none;
    font-size: 18px;
    padding: 0;
@@ -40,4 +40,36 @@
 .logImg {
    width: 30px;
    cursor: pointer;
+}
+
+
+.subMenu {
+   display: none;
+   position: absolute;
+   top: calc(100%);
+   border: 1px solid silver;
+   background: white;
+   left: 0;
+   gap: 10px;
+   padding: 10px;
+   /* border-radius: 5px; */
+   list-style: none;
+}
+
+.subMenuTrigger:hover .subMenu {
+   display: block;
+}
+
+.subMenuTrigger {
+   position: relative;
+   cursor: pointer;
+}
+
+.subMenuTrigger:hover .arrow {
+   transform: rotate(90deg);
+}
+
+.arrow {
+   margin-left: 5px;
+   transition: transform 0.3s ease;
 }

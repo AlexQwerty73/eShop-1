@@ -20,7 +20,7 @@ export const Footer = () => {
                </div>
 
                <div className={s.login}>
-                  <Link to='/singin'>
+                  <Link to='/singup'>
                      <div className={s.img}>
                         <Img folder='myart' img='create-account.webp' />
                      </div>

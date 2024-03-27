@@ -29,7 +29,16 @@ export const usersApi = createApi({
          }),
          invalidatesTags: [{ type: typeTag, id: 'LIST' }],
       }),
+
+      updateUser: build.mutation({
+         query: ({ id, ...changes }) => ({
+            url: `${resource}/${id}`,
+            method: 'PUT',
+            body: changes,
+         }),
+         invalidatesTags: (result, error, { id }) => [{ type: typeTag, id }],
+      }),
    }),
 });
 
-export const { useGetUsersQuery, useAddUserMutation } = usersApi;
+export const { useGetUsersQuery, useAddUserMutation, useUpdateUserMutation } = usersApi;
