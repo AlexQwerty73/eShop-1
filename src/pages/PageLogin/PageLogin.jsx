@@ -2,7 +2,7 @@ import React from 'react';
 import { FormComponent } from '../../components/common';
 import s from './login.module.css';
 import { useGetUsersQuery } from '../../redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { saveToLocalStorage } from '../../utils';
 
 export const PageLogin = () => {
@@ -35,6 +35,7 @@ export const PageLogin = () => {
                   inputs={['email', 'password']}
                   onSubmit={onSubmit}
                />
+               <Link to='/singup'>Create an account</Link>
             </div>
          </div>
       </div>

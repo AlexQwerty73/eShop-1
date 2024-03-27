@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from './components/';
-import { PageHome, PageLogin, PageNotFound, PageProduct, PageSingin, ProductPage } from './pages/';
+import { PageHome, PageLogin, PageNotFound, PageProduct, PageSingup } from './pages/';
 
 const App = () => {
   return (
@@ -10,15 +10,18 @@ const App = () => {
         <Route path='/' element={<Layout />}>
           <Route index element={<PageHome />} />
 
-          <Route path='product/' element={<ProductPage />}>
-            <Route path=':productId/' >
-              <Route index element={<PageProduct />} />
+          <Route path='product/' >
+            <Route path=':productId/' element={<PageProduct />}>
             </Route>
+          </Route>
+
+          <Route path='profile/'>
+            <Route path=':userId' />{/*  */}
           </Route>
 
         </Route>
 
-        <Route path='/singin/' element={<PageSingin />} />
+        <Route path='/singup/' element={<PageSingup />} />
         <Route path='/login/' element={<PageLogin />} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>

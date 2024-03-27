@@ -4,6 +4,7 @@ import './carousel.css';
 import s from './carousel.module.css';
 
 export const Carousel = ({ imgs }) => {
+   console.log(imgs);
    return (
       <div className={s.carousel}>
          <div id="carouselExampleIndicators" className="carousel slide">
@@ -32,17 +33,22 @@ export const Carousel = ({ imgs }) => {
                )}
             </div>
             <div className="carousel-inner">
-               {imgs ? (
-                  imgs.map((img, i) => (
-                     <div key={i} className={`carousel-item ${i === 0 ? 'active' : ''}`}>
-                        <Img className="d-block w-100" folder='products' img={img} alt='img' />
-                     </div>
-                  ))
-               ) : (
-                  <div className='carousel-item active'>
-                     <Img className="d-block w-100" folder='products' img='not-found.png' alt='img' />
-                  </div>
-               )}
+
+               {
+                  imgs && imgs.length > 0
+                     ? (
+                        imgs.map((img, i) => (
+                           <div key={i} className={`carousel-item ${i === 0 ? 'active' : ''}`}>
+                              <Img className="d-block w-100" folder='products' img={img} alt='img' />
+                           </div>
+                        ))
+                     ) : (
+                        <div className='carousel-item active'>
+                           <Img className="d-block w-100" folder='products' img='not-found2.png' alt='img' />
+                        </div>
+                     )
+               }
+
             </div>
             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                <span className="carousel-control-prev-icon" aria-hidden="true"></span>

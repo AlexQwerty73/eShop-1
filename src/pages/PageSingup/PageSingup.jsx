@@ -5,7 +5,7 @@ import { useAddUserMutation } from '../../redux'
 import { useNavigate } from 'react-router-dom';
 import { saveToLocalStorage } from '../../utils';
 
-export const PageSingin = () => {
+export const PageSingup = () => {
    const navigate = useNavigate();
    const [addNewUser] = useAddUserMutation();
 
