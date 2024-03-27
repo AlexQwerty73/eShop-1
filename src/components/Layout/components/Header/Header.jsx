@@ -31,7 +31,13 @@ export const Header = () => {
                         <li key={index}><NavLink to={link.path}>{link.text}</NavLink></li>
                      ))
                   }
-
+                  <li>
+                     <div className={s.logImg}>
+                        {
+                           <Img folder='cart' img='cart.png' link='cart' alt='cart img' />
+                        }
+                     </div>
+                  </li>
                   <li>
                      <div className={s.logImg}>
                         {

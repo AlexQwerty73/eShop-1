@@ -1,7 +1,9 @@
 .product {
    border: 1px solid #ccc;
+   border-top: none;
+   border-left: none;
    padding: 16px;
-   margin: 10px;
+   /* margin: 10px; */
 }
 
 .name {

@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './renderStars.module.css';
 
-const RenderStars = ({ rating }) => {
+export const RenderStars = ({ rating }) => {
    const fullStars = 5;
    let a = Math.round(rating);
 
@@ -18,5 +18,3 @@ const RenderStars = ({ rating }) => {
       </div>
    );
 };
-
-export default RenderStars;
