@@ -1,7 +1,7 @@
 import React from 'react';
 import s from '../../productDetails.module.css';
 import { Img, RenderStars } from '../../../common';
-import { averageRating } from '../../../../utils';
+import { averageRating, priceWithDiscount } from '../../../../utils';
 
 export const ProductInfo = ({ product }) => {
 
@@ -18,7 +18,13 @@ export const ProductInfo = ({ product }) => {
          <h6>Inventory: {product.inventory}</h6>
          <p>{product.description}</p>
          <hr />
-         <h2>{product.price} {product.currency}</h2>
+         <h2>
+            {
+               product.discount > 0
+                  ? <div className={s.discountPrice}>{priceWithDiscount(product)} {product.currency} (-{product.discount * 100}%) <span> {product.price} {product.currency}</span></div>
+                  : <div className={s.price}>{product.price} {product.currency}</div>
+            }
+         </h2>
          {
             product.inventory === 0
                ? <button className={`${s.btn_buy} ${s.opac_05}`}>Add To Cart

@@ -13,7 +13,7 @@
         "Electronics"
       ],
       "description": "This is product one.",
-      "inventory": 40,
+      "inventory": 2,
       "rating": 5,
       "discount": 0.2,
       "reviews": [
@@ -49,7 +49,7 @@
         "Electronics"
       ],
       "description": "This is product one.",
-      "inventory": 20,
+      "inventory": 0,
       "rating": 5,
       "discount": 0,
       "reviews": [

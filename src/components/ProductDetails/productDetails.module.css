@@ -35,6 +35,16 @@
 
 }
 
+.discountPrice {
+   color: tomato;
+}
+
+.discountPrice span {
+
+   text-decoration: line-through;
+   color: rgb(69, 69, 69);
+}
+
 .opac_05 {
    opacity: .5;
 }
