@@ -26,7 +26,7 @@ export const PageCart = () => {
    }, [cart, products]);
 
    const handleQuantityChange = (productId, newQuantity) => {
-      if (newQuantity < 0) return;
+      if (newQuantity < 1) return;
       const updatedCart = { ...cart, [productId]: newQuantity };
       setCart(updatedCart);
       saveToLocalStorage('cart', updatedCart);
@@ -43,7 +43,6 @@ export const PageCart = () => {
       if (!userData) return;
 
       const date = new Date().toISOString();
-      // Формуємо масив замовлень, обмежений необхідними полями
       const order = {
          date,
          products: Object.keys(cart).map(productId => ({
@@ -56,20 +55,16 @@ export const PageCart = () => {
       };
       const currentUser = userData.data;
 
-      // Перевіряємо, чи користувач має визначені замовлення
       if (currentUser && currentUser.orders) {
          const updatedOrders = [...currentUser.orders, order];
          await updateUser({ ...currentUser, orders: updatedOrders });
       } else {
-         // Якщо користувач ще не має замовлень, створюємо новий масив
          await updateUser({ ...currentUser, orders: [order] });
       }
 
       setCart({});
       saveToLocalStorage('cart', {});
    };
-
-
 
    const totalPriceOfEverything = productsWithQty.reduce((total, { product, qty }) => {
       return total + (priceWithDiscount(product) * qty);
@@ -79,45 +74,51 @@ export const PageCart = () => {
       <div className={s.pageCart}>
          <div className="container">
             <h1>Your Cart</h1>
-            <table className={s.table}>
-               <thead>
-                  <tr>
-                     <th className={s.headerCell}>Name</th>
-                     <th className={s.headerCell}>Price</th>
-                     <th className={s.headerCell}>Quantity</th>
-                     <th className={s.headerCell}>Total Price</th>
-                     <th className={s.headerCell}>Action</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  {productsWithQty.map(({ product, qty }) => (
-                     <tr key={product.id} className={s.row}>
-                        <td>{product.name}</td>
-                        <td>{priceWithDiscount(product)}</td>
-                        <td>
-                           <div className={s.quantityControl}>
-                              <button onClick={() => handleQuantityChange(product.id, qty - 1)} className={s.quantityButton}>-</button>
-                              <input
-                                 type="number"
-                                 value={qty}
-                                 min={0}
-                                 onChange={(e) => {
-                                    const newQuantity = parseInt(e.target.value);
-                                    handleQuantityChange(product.id, isNaN(newQuantity) ? 0 : newQuantity);
-                                 }}
-                                 className={s.quantityInput}
-                              />
-                              <button onClick={() => handleQuantityChange(product.id, qty + 1)} className={s.quantityButton}>+</button>
-                           </div>
-                        </td>
-                        <td>{(priceWithDiscount(product) * qty).toFixed(2)}</td>
-                        <td><button onClick={() => handleDeleteItem(product.id)} className={s.deleteButton}>Delete</button></td>
+            {productsWithQty.length === 0 ? (
+               <p className={s.emptyCartMessage}>Your cart is empty</p>
+            ) : (
+               <table className={s.table}>
+                  <thead>
+                     <tr>
+                        <th className={s.headerCell}>Name</th>
+                        <th className={s.headerCell}>Price</th>
+                        <th className={s.headerCell}>Quantity</th>
+                        <th className={s.headerCell}>Total Price</th>
+                        <th className={s.headerCell}>Action</th>
                      </tr>
-                  ))}
-               </tbody>
-            </table>
-            <button onClick={handleBuy} className={s.buyButton}>Buy</button>
-            <div className={s.totalPrice}>Total Price of Everything: {totalPriceOfEverything.toFixed(2)}</div>
+                  </thead>
+                  <tbody>
+                     {productsWithQty.map(({ product, qty }) => (
+                        <tr key={product.id} className={s.row}>
+                           <td>{product.name}</td>
+                           <td>{priceWithDiscount(product)}</td>
+                           <td>
+                              <div className={s.quantityControl}>
+                                 <button onClick={() => handleQuantityChange(product.id, qty - 1)} className={s.quantityButton}>-</button>
+                                 <input
+                                    type="number"
+                                    value={qty}
+                                    min={0}
+                                    onChange={(e) => {
+                                       const newQuantity = parseInt(e.target.value);
+                                       handleQuantityChange(product.id, isNaN(newQuantity) ? 0 : newQuantity);
+                                    }}
+                                    className={s.quantityInput}
+                                 />
+                                 <button onClick={() => handleQuantityChange(product.id, qty + 1)} className={s.quantityButton}>+</button>
+                              </div>
+                           </td>
+                           <td>{(priceWithDiscount(product) * qty).toFixed(2)}</td>
+                           <td><button onClick={() => handleDeleteItem(product.id)} className={s.deleteButton}>Delete</button></td>
+                        </tr>
+                     ))}
+                  </tbody>
+               </table>
+            )}
+            <div className={s.b_part}>
+               <div className={s.totalPrice}>Total Price of Everything: {totalPriceOfEverything.toFixed(2)}</div>
+               <button onClick={handleBuy} className={s.buyButton}>Buy</button>
+            </div>
          </div>
       </div>
    );

@@ -2,10 +2,21 @@
    padding: 50px;
 }
 
+.container {
+   max-width: 800px;
+   margin: 0 auto;
+}
+
+.title {
+   font-size: 24px;
+   font-weight: bold;
+   margin-bottom: 20px;
+}
+
 .table {
    width: 100%;
    border-collapse: collapse;
-   /* padding: 20px; */
+   margin-bottom: 20px;
 }
 
 .headerCell {
@@ -25,11 +36,6 @@
    background-color: #f0f0f0;
 }
 
-.cell {
-   padding: 10px;
-   border-bottom: 1px solid #ddd;
-}
-
 .quantityControl {
    display: flex;
    align-items: center;
@@ -42,6 +48,11 @@
    background-color: #ddd;
    cursor: pointer;
    font-weight: bold;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 16px;
+   color: #555;
 }
 
 .quantityInput {
@@ -50,6 +61,13 @@
    text-align: center;
    margin: 0 5px;
    border: 1px solid #ddd;
+   font-size: 16px;
+}
+
+.quantityInput::-webkit-inner-spin-button,
+.quantityInput::-webkit-outer-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
 }
 
 .deleteButton {
@@ -59,6 +77,18 @@
    border: none;
    cursor: pointer;
    font-weight: bold;
+   font-size: 16px;
+}
+
+.buyButton {
+   padding: 12px 20px;
+   background-color: #4caf50;
+   color: white;
+   border: none;
+   cursor: pointer;
+   font-weight: bold;
+   font-size: 18px;
+   margin-right: 10px;
 }
 
 .totalPrice {
@@ -68,9 +98,14 @@
    color: #333;
 }
 
+.emptyCartMessage {
+   font-size: 18px;
+   color: #666;
+   text-align: center;
+   margin-top: 20px;
+}
 
-.quantityInput::-webkit-inner-spin-button,
-.quantityInput::-webkit-outer-spin-button {
-   -webkit-appearance: none;
-   margin: 0;
+.b_part {
+   display: flex;
+   justify-content: space-between;
 }
