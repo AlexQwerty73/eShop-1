@@ -40,6 +40,42 @@
       "updated_at": "2021-07-16T18:30:00Z"
     },
     {
+      "id": "deh9",
+      "name": "Product 12",
+      "price": 10.99,
+      "currency": "USD",
+      "imgs": [],
+      "category": [
+        "Electronics"
+      ],
+      "description": "This is product one. This is product one.This is product one. This is product one.This is product one.This is product one.This is product one.This is product one. This is product one.",
+      "inventory": 2,
+      "rating": 5,
+      "discount": 0,
+      "reviews": [
+        {
+          "username": "John Doe",
+          "stars": 5,
+          "review": "Great product!",
+          "date": "2021-07-16T18:30:00"
+        },
+        {
+          "username": "John Hue",
+          "stars": 4,
+          "review": "Great product!",
+          "date": "2022-07-16T18:00:00"
+        }
+      ],
+      "images": [],
+      "variants": [
+        "color:blue"
+      ],
+      "options": [],
+      "is_available": true,
+      "created_at": "2021-07-16T18:30:00Z",
+      "updated_at": "2021-07-16T18:30:00Z"
+    },
+    {
       "id": "rgvbw",
       "name": "Product 2",
       "price": 5.99,
@@ -79,19 +115,41 @@
       "email": "john@example.com",
       "address": "addres 1",
       "published_products": [],
+      "orders": [],
       "created_at": "2021-07-16T18:30:00Z",
       "updated_at": "2021-07-16T18:30:00Z"
     },
     {
-      "first_name": "Oleksii",
-      "last_name": "Surname",
+      "id": "1111",
+      "first_name": "alex",
+      "last_name": "ALEX",
+      "password": "12345678",
       "email": "alextugai73@gmail.com",
-      "password": "alextext",
-      "address": "text address",
+      "address": "addres 1",
       "published_products": [],
-      "created_at": "2024-03-25T18:02:00.053Z",
-      "updated_at": "2024-03-25T18:02:00.053Z",
-      "id": "2006"
+      "orders": [
+        {
+          "date": "2024-03-29T19:22:27.159Z",
+          "products": [
+            {
+              "id": "qweim",
+              "price": 5.99,
+              "name": "Product 1",
+              "discount": 0.2,
+              "quantity": 3
+            },
+            {
+              "id": "deh9",
+              "price": 10.99,
+              "name": "Product 12",
+              "discount": 0,
+              "quantity": 1
+            }
+          ]
+        }
+      ],
+      "created_at": "2021-07-16T18:30:00Z",
+      "updated_at": "2021-07-16T18:30:00Z"
     }
   ]
 }

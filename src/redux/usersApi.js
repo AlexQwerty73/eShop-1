@@ -31,12 +31,12 @@ export const usersApi = createApi({
       }),
 
       updateUser: build.mutation({
-         query: ({ id, ...changes }) => ({
-            url: `${resource}/${id}`,
+         query: (body) => ({
+            url: `${resource}/${body.id}`,
             method: 'PUT',
-            body: changes,
+            body,
          }),
-         invalidatesTags: (result, error, { id }) => [{ type: typeTag, id }],
+         invalidatesTags: [{ type: typeTag, id: 'LIST' }],
       }),
    }),
 });

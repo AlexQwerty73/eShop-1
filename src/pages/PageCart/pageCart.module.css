@@ -1,0 +1,76 @@
+.pageCart {
+   padding: 50px;
+}
+
+.table {
+   width: 100%;
+   border-collapse: collapse;
+   /* padding: 20px; */
+}
+
+.headerCell {
+   padding: 12px;
+   text-align: left;
+   border-bottom: 2px solid #ddd;
+   font-weight: bold;
+   color: #333;
+}
+
+.row {
+   padding: 10px;
+   background-color: #f9f9f9;
+}
+
+.row:hover {
+   background-color: #f0f0f0;
+}
+
+.cell {
+   padding: 10px;
+   border-bottom: 1px solid #ddd;
+}
+
+.quantityControl {
+   display: flex;
+   align-items: center;
+}
+
+.quantityButton {
+   width: 30px;
+   height: 30px;
+   border: none;
+   background-color: #ddd;
+   cursor: pointer;
+   font-weight: bold;
+}
+
+.quantityInput {
+   width: 50px;
+   height: 30px;
+   text-align: center;
+   margin: 0 5px;
+   border: 1px solid #ddd;
+}
+
+.deleteButton {
+   padding: 8px 16px;
+   background-color: #f44336;
+   color: white;
+   border: none;
+   cursor: pointer;
+   font-weight: bold;
+}
+
+.totalPrice {
+   margin-top: 20px;
+   font-size: 18px;
+   font-weight: bold;
+   color: #333;
+}
+
+
+.quantityInput::-webkit-inner-spin-button,
+.quantityInput::-webkit-outer-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+}
