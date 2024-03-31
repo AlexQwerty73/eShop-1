@@ -5,3 +5,4 @@ export * from './PageLogin';
 export * from './PageProduct';
 export * from './PageProfile';
 export * from './PageCart';
+export * from './PageOrders';

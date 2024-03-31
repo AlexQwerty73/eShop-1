@@ -1,0 +1,28 @@
+.table {
+   width: 100%;
+   border-collapse: collapse;
+}
+
+.tableHeader {
+   background-color: #f2f2f2;
+}
+
+.cell {
+   border: 1px solid #ddd;
+   padding: 8px;
+   text-align: left;
+}
+
+.rowEven {
+   background-color: #f2f2f2;
+}
+
+.list {
+   margin: 0;
+   padding: 0;
+}
+
+.item {
+   list-style: none;
+   margin-bottom: 5px;
+}

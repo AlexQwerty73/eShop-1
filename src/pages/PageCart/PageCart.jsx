@@ -53,6 +53,7 @@ export const PageCart = () => {
       const date = new Date().toISOString();
       const order = {
          date,
+         isDelivered: false,
          delivery: orderData.delivery,
          payment: orderData.payment,
          totalPrice: orderData.totalPrice,
