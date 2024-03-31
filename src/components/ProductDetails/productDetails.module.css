@@ -92,3 +92,21 @@
    align-items: center;
    gap: 5px;
 }
+
+.loginPrompt {
+   padding: 20px;
+   background-color: #f7f7f7;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   margin-top: 20px;
+}
+
+.loginPrompt p {
+   font-size: 16px;
+   margin: 0;
+}
+
+.loginPrompt a {
+   color: blue;
+   text-decoration: underline;
+}

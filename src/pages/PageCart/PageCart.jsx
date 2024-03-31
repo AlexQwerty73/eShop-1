@@ -3,6 +3,8 @@ import s from './pageCart.module.css';
 import { loadFromLocalStorage, priceWithDiscount, saveToLocalStorage } from '../../utils';
 import { useGetProductsQuery, useGetUsersQuery, useUpdateUserMutation } from '../../redux';
 
+import { EmptyCartMessage, CartTable, BuyButton, PaymentAndDeliveryStep } from './components';
+
 export const PageCart = () => {
    const [cart, setCart] = useState(loadFromLocalStorage('cart'));
    const [productsWithQty, setProductsWithQty] = useState([]);
@@ -11,6 +13,7 @@ export const PageCart = () => {
 
    const userId = loadFromLocalStorage('user');
    const userData = useGetUsersQuery(userId);
+   const [showPaymentStep, setShowPaymentStep] = useState(false);
 
    useEffect(() => {
       if (products) {
@@ -39,32 +42,51 @@ export const PageCart = () => {
       saveToLocalStorage('cart', updatedCart);
    };
 
-   const handleBuy = async () => {
+   const handleBuy = () => {
+      setShowPaymentStep(true);
+   };
+
+   const handleCompleteOrder = async (orderData) => {
       if (!userData) return;
 
+      const currentUser = userData.data;
       const date = new Date().toISOString();
       const order = {
          date,
+         delivery: orderData.delivery,
+         payment: orderData.payment,
+         totalPrice: orderData.totalPrice,
+         address: orderData.address,
+         first_name: userId ? currentUser.first_name : orderData.first_name,
+         last_name: userId ? currentUser.last_name : orderData.last_name,
+         email: userId ? currentUser.email : orderData.email,
          products: Object.keys(cart).map(productId => ({
             id: productId,
             price: products.find(p => p.id === productId).price,
             name: products.find(p => p.id === productId).name,
             discount: products.find(p => p.id === productId).discount,
             quantity: cart[productId]
+            
          }))
       };
-      const currentUser = userData.data;
 
-      if (currentUser && currentUser.orders) {
-         const updatedOrders = [...currentUser.orders, order];
-         await updateUser({ ...currentUser, orders: updatedOrders });
-      } else {
-         await updateUser({ ...currentUser, orders: [order] });
+      try {
+         if (currentUser && currentUser.orders) {
+            const updatedOrders = [...currentUser.orders, order];
+            await updateUser({ ...currentUser, orders: updatedOrders });
+         } else {
+            await updateUser({ ...currentUser, orders: [order] });
+         }
+
+         setCart({});
+         saveToLocalStorage('cart', {});
+         setShowPaymentStep(false);
+      } catch (error) {
+         console.error("Error completing order:", error);
       }
-
-      setCart({});
-      saveToLocalStorage('cart', {});
    };
+
+
 
    const totalPriceOfEverything = productsWithQty.reduce((total, { product, qty }) => {
       return total + (priceWithDiscount(product) * qty);
@@ -75,49 +97,25 @@ export const PageCart = () => {
          <div className="container">
             <h1>Your Cart</h1>
             {productsWithQty.length === 0 ? (
-               <p className={s.emptyCartMessage}>Your cart is empty</p>
+               <EmptyCartMessage />
             ) : (
-               <table className={s.table}>
-                  <thead>
-                     <tr>
-                        <th className={s.headerCell}>Name</th>
-                        <th className={s.headerCell}>Price</th>
-                        <th className={s.headerCell}>Quantity</th>
-                        <th className={s.headerCell}>Total Price</th>
-                        <th className={s.headerCell}>Action</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     {productsWithQty.map(({ product, qty }) => (
-                        <tr key={product.id} className={s.row}>
-                           <td>{product.name}</td>
-                           <td>{priceWithDiscount(product)}</td>
-                           <td>
-                              <div className={s.quantityControl}>
-                                 <button onClick={() => handleQuantityChange(product.id, qty - 1)} className={s.quantityButton}>-</button>
-                                 <input
-                                    type="number"
-                                    value={qty}
-                                    min={0}
-                                    onChange={(e) => {
-                                       const newQuantity = parseInt(e.target.value);
-                                       handleQuantityChange(product.id, isNaN(newQuantity) ? 0 : newQuantity);
-                                    }}
-                                    className={s.quantityInput}
-                                 />
-                                 <button onClick={() => handleQuantityChange(product.id, qty + 1)} className={s.quantityButton}>+</button>
-                              </div>
-                           </td>
-                           <td>{(priceWithDiscount(product) * qty).toFixed(2)}</td>
-                           <td><button onClick={() => handleDeleteItem(product.id)} className={s.deleteButton}>Delete</button></td>
-                        </tr>
-                     ))}
-                  </tbody>
-               </table>
+               <CartTable
+                  productsWithQty={productsWithQty}
+                  handleQuantityChange={handleQuantityChange}
+                  handleDeleteItem={handleDeleteItem}
+               />
             )}
             <div className={s.b_part}>
                <div className={s.totalPrice}>Total Price of Everything: {totalPriceOfEverything.toFixed(2)}</div>
-               <button onClick={handleBuy} className={s.buyButton}>Buy</button>
+               {showPaymentStep ? (
+                  <PaymentAndDeliveryStep
+                     totalPrice={totalPriceOfEverything}
+                     handleCompleteOrder={handleCompleteOrder}
+                     user={userData?.data}
+                  />
+               ) : (
+                  <BuyButton handleBuy={handleBuy} />
+               )}
             </div>
          </div>
       </div>

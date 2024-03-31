@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import s from '../../productDetails.module.css';
 import { Img, RenderStars } from '../../../common';
 import { averageRating, loadFromLocalStorage, priceWithDiscount, saveToLocalStorage } from '../../../../utils';
 
 export const ProductInfo = ({ product }) => {
+   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
    const onAddToCartHandler = () => {
+      // const userId = loadFromLocalStorage('user');
+      // if (!userId) {
+      //    setIsLoggedIn(true);
+      //    return;
+      // }
+
       let cart = loadFromLocalStorage('cart');
       if (!cart) {
          cart = {};
@@ -48,6 +55,11 @@ export const ProductInfo = ({ product }) => {
                   </div>
                </button>
          }
+         {/* {isLoggedIn && (
+            <div className={s.loginPrompt}>
+               <p>To add items to your cart, please <a href="/login">log in</a> to your account first.</p>
+            </div>
+         )} */}
       </div>
    );
 };
