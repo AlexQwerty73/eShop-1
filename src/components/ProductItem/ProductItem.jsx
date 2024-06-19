@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './productItem.module.css';
-import { Img, RenderStars } from '../common'
+import { Img, RenderStars } from '../common';
 import { Link } from 'react-router-dom';
 import { averageRating, priceWithDiscount } from '../../utils';
 
@@ -14,7 +14,7 @@ export const ProductItem = ({ product }) => {
                <Img folder='products' img={product.imgs[0] || 'not-found.png'} />
             </div>
             <div className={s.name}>{name}</div>
-            {/* <div className={s.rating}><RenderStars rating={averageRating(product)} /></div> */}
+
             <div className={s.oldPrice}> {discount > 0 ? `${price} ${currency}` : ' '}</div>
 
             <div>
@@ -25,6 +25,12 @@ export const ProductItem = ({ product }) => {
                }
             </div>
 
+            {/* Hidden by default, shown on hover */}
+            <div className={s.hiddenBlock}>
+               <div className={s.rating}>
+                  <RenderStars rating={averageRating(product)} />
+               </div>
+            </div>
          </Link>
       </div>
    );

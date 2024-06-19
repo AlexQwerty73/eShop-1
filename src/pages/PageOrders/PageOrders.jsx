@@ -57,8 +57,8 @@ export const PageOrders = () => {
                            ))}
                         </ul>
                      </td>
-                     <td className={s.cell}>{order.delivery.type}, {order.delivery.price} UAH</td>
-                     <td className={s.cell}>{order.payment.type}, {order.payment.price} UAH</td>
+                     <td className={s.cell}>{order.delivery.type}, {order.delivery.price} </td>
+                     <td className={s.cell}>{order.payment.type}, {order.payment.price} </td>
                      <td className={s.cell}>{order.totalPrice}</td>
                      <td className={s.cell}>{order.isDelivered ? 'Yes' : 'No'}</td>
                   </tr>

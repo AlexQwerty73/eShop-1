@@ -19,7 +19,7 @@
       "reviews": [
         {
           "username": "John Doe",
-          "stars": 5,
+          "stars": 2,
           "review": "Great product!",
           "date": "2021-07-16T18:30:00"
         },
@@ -198,6 +198,46 @@
               "name": "Product 1",
               "discount": 0.2,
               "quantity": 3
+            }
+          ]
+        },
+        {
+          "date": "2024-04-01T13:02:54.596Z",
+          "isDelivered": false,
+          "delivery": {
+            "id": 3,
+            "type": "Delivery by Company 2",
+            "price": 4,
+            "addresses": [
+              "Company 2 Address 1",
+              "Company 2 Address 2",
+              "Company 2 Address 3"
+            ]
+          },
+          "payment": {
+            "id": 2,
+            "type": "Payment on delivery",
+            "price": 5
+          },
+          "totalPrice": 73.53,
+          "address": "",
+          "first_name": "alex",
+          "last_name": "ALEX",
+          "email": "alextugai73@gmail.com",
+          "products": [
+            {
+              "id": "deh9",
+              "price": 10.99,
+              "name": "Product 12",
+              "discount": 0,
+              "quantity": 5
+            },
+            {
+              "id": "qweim",
+              "price": 5.99,
+              "name": "Product 1",
+              "discount": 0.2,
+              "quantity": 2
             }
           ]
         }
