@@ -4,7 +4,7 @@ import './carousel.css';
 import s from './carousel.module.css';
 
 export const Carousel = ({ imgs }) => {
-   console.log(imgs);
+   // console.log(imgs);
    return (
       <div className={s.carousel}>
          <div id="carouselExampleIndicators" className="carousel slide">

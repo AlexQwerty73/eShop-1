@@ -20,8 +20,15 @@ export const productsApi = createApi({
                ]
                : [{ type: typeTag, id: 'LIST' }],
       }),
-
+      updateProduct: build.mutation({
+         query: ({ productId, body }) => ({
+            url: `${resource}/${productId}`,
+            method: 'PUT',
+            body,
+         }),
+         invalidatesTags: [{ type: typeTag, id: 'LIST' }],
+      }),
    }),
 });
 
-export const { useGetProductsQuery } = productsApi;
+export const { useGetProductsQuery, useUpdateProductMutation } = productsApi;

@@ -110,3 +110,56 @@
    color: blue;
    text-decoration: underline;
 }
+
+
+.btnWriteReview {
+   margin-top: 10px;
+   padding: 5px 10px;
+   background-color: #007bff;
+   color: white;
+   border: none;
+   cursor: pointer;
+   /* border-radius: 5px; */
+
+}
+
+.btnWriteReview:hover {
+   background-color: #0056b3;
+}
+
+.reviewForm {
+   margin-top: 10px;
+   display: flex;
+   flex-direction: column;
+}
+
+.reviewForm > div {
+   margin-bottom: 10px;
+}
+
+.reviewForm label {
+   display: block;
+   margin-bottom: 5px;
+}
+
+.reviewForm input,
+.reviewForm select,
+.reviewForm textarea {
+   width: 100%;
+   padding: 8px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+}
+
+.reviewForm button {
+   padding: 10px 20px;
+   background-color: #28a745;
+   color: white;
+   border: none;
+   cursor: pointer;
+   border-radius: 5px;
+}
+
+.reviewForm button:hover {
+   background-color: #218838;
+}
