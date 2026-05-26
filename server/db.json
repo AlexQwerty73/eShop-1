@@ -13,7 +13,7 @@
         "Electronics"
       ],
       "description": "This is product one.",
-      "inventory": 2,
+      "inventory": 0,
       "rating": 5,
       "discount": 0.2,
       "reviews": [
@@ -149,7 +149,7 @@
       "category": [
         "Audio"
       ],
-      "inventory": 100,
+      "inventory": 99,
       "discount": 0.09,
       "variants": [
         "M",
@@ -3040,7 +3040,7 @@
       "category": [
         "Electronics"
       ],
-      "inventory": 10000000000,
+      "inventory": 9999999999,
       "discount": 0.05,
       "variants": [
         "M",
@@ -3095,7 +3095,63 @@
       "password": "testtesttest",
       "address": "123 main str",
       "published_products": [],
-      "orders": [],
+      "orders": [
+        {
+          "id": "1779787945594-zb1rzv5t5",
+          "date": "2026-05-26T09:32:25.594Z",
+          "isDelivered": false,
+          "isCancelled": false,
+          "delivery": {
+            "id": 3,
+            "icon": "🏪",
+            "name": "Local Pickup",
+            "desc": "Ready in 2 hours",
+            "price": 0,
+            "addresses": [
+              "Store A — Main St",
+              "Store B — Mall",
+              "Store C — Airport"
+            ]
+          },
+          "payment": {
+            "id": 2,
+            "icon": "💵",
+            "name": "Pay on delivery",
+            "desc": "Cash or card at door",
+            "price": 5
+          },
+          "totalPrice": 104.07,
+          "address": "Store A — Main St",
+          "first_name": "Tets",
+          "last_name": "Tester",
+          "email": "test@gmail.com",
+          "promoCode": "SAVE10",
+          "promoDiscount": 11.01,
+          "products": [
+            {
+              "id": "qweim",
+              "price": 5.99,
+              "name": "Product 1",
+              "discount": 0.2,
+              "quantity": 2
+            },
+            {
+              "id": "1ba0",
+              "price": 10,
+              "name": "test",
+              "discount": 0.05,
+              "quantity": 1
+            },
+            {
+              "id": "dc9e",
+              "price": 100,
+              "name": "product",
+              "discount": 0.09,
+              "quantity": 1
+            }
+          ]
+        }
+      ],
       "avatar": null,
       "created_at": "2026-05-26T09:21:23.117Z",
       "updated_at": "2026-05-26T09:21:23.117Z"
@@ -3111,9 +3167,10 @@
       "discountFixed": 0,
       "minOrderAmount": 20,
       "maxUses": 100,
-      "usedCount": 5,
+      "usedCount": 6,
       "expiresAt": "2027-12-31T23:59:59Z",
-      "isActive": true
+      "isActive": true,
+      "discountAmount": 11.01
     },
     {
       "id": "promo2",

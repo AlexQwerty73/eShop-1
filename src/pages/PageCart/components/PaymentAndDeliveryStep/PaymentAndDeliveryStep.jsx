@@ -1,244 +1,130 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import s from '../../pageCart.module.css';
-import { useGetPromoCodesQuery, useUpdatePromoCodeMutation } from '../../../../redux';
 
-export const PaymentAndDeliveryStep = ({ totalPrice, handleCompleteOrder, user, currency = 'USD' }) => {
-   const paymentOptions = [
-      { id: 1, type: 'Free (pay by card now)', price: 0 },
-      { id: 2, type: 'Payment on delivery',    price: 5 },
-   ];
+export const DELIVERY_OPTIONS = [
+   { id: 1, icon: '🚚', name: 'Home Delivery',      desc: '2–4 business days',     price: 10, addresses: [] },
+   { id: 2, icon: '📦', name: 'Company Express',    desc: '1–2 business days',     price: 5,  addresses: ['Point A — Downtown', 'Point B — North', 'Point C — East'] },
+   { id: 3, icon: '🏪', name: 'Local Pickup',       desc: 'Ready in 2 hours',      price: 0,  addresses: ['Store A — Main St', 'Store B — Mall', 'Store C — Airport'] },
+];
 
-   const deliveryOptions = [
-      { id: 1, type: 'Home delivery',           price: 10, addresses: [] },
-      { id: 2, type: 'Delivery by Company 1',   price: 5,  addresses: ['Company 1 — Point A', 'Company 1 — Point B', 'Company 1 — Point C'] },
-      { id: 3, type: 'Delivery by Company 2',   price: 4,  addresses: ['Company 2 — Point A', 'Company 2 — Point B', 'Company 2 — Point C'] },
-   ];
+export const PAYMENT_OPTIONS = [
+   { id: 1, icon: '💳', name: 'Card now',          desc: 'Visa / Mastercard / AMEX', price: 0 },
+   { id: 2, icon: '💵', name: 'Pay on delivery',   desc: 'Cash or card at door',     price: 5 },
+];
 
-   const [selectedPayment,  setSelectedPayment]  = useState(paymentOptions[0]);
-   const [selectedDelivery, setSelectedDelivery] = useState(deliveryOptions[0]);
-   const [selectedAddress,  setSelectedAddress]  = useState('');
-   const [first_name, setFirstName] = useState('');
-   const [last_name,  setLastName]  = useState('');
-   const [email,      setEmail]     = useState('');
-   const [validationError, setValidationError] = useState('');
-
-   // Promo code state
-   const [promoInput, setPromoInput]       = useState('');
-   const [appliedPromo, setAppliedPromo]   = useState(null); // { code, discount }
-   const [promoMsg,    setPromoMsg]        = useState('');
-   const [promoError,  setPromoError]      = useState('');
-
-   const { data: promoCodes = [] } = useGetPromoCodesQuery();
-   const [updatePromoCode] = useUpdatePromoCodeMutation();
-
-   useEffect(() => {
-      if (user) {
-         setFirstName(user.first_name || '');
-         setLastName(user.last_name  || '');
-         setEmail(user.email        || '');
-      }
-   }, [user]);
-
-   const handleDeliveryChange = (delivery) => {
-      setSelectedDelivery(delivery);
-      setSelectedAddress('');
-   };
-
-   const now = new Date();
-
-   const calculateDiscount = (promo, baseTotal) => {
-      if (promo.discountType === 'percent') {
-         return +(baseTotal * (promo.discountPercent / 100)).toFixed(2);
-      }
-      return +Math.min(promo.discountFixed, baseTotal).toFixed(2);
-   };
-
-   const handleApplyPromo = () => {
-      setPromoMsg('');
-      setPromoError('');
-      const code = promoInput.trim().toUpperCase();
-      const promo = promoCodes.find((p) => p.code.toUpperCase() === code);
-
-      if (!promo) {
-         setPromoError('Promo code not found.');
-         return;
-      }
-      if (!promo.isActive) {
-         setPromoError('This promo code is no longer active.');
-         return;
-      }
-      if (new Date(promo.expiresAt) < now) {
-         setPromoError('This promo code has expired.');
-         return;
-      }
-      if (promo.maxUses > 0 && promo.usedCount >= promo.maxUses) {
-         setPromoError('This promo code has reached its usage limit.');
-         return;
-      }
-      if (promo.minOrderAmount > 0 && totalPrice < promo.minOrderAmount) {
-         setPromoError(`Minimum order amount for this code is $${promo.minOrderAmount}.`);
-         return;
-      }
-
-      const discount = calculateDiscount(promo, totalPrice);
-      setAppliedPromo({ ...promo, discountAmount: discount });
-      setPromoMsg(`✓ Code applied! You save $${discount.toFixed(2)}`);
-   };
-
-   const handleRemovePromo = () => {
-      setAppliedPromo(null);
-      setPromoInput('');
-      setPromoMsg('');
-      setPromoError('');
-   };
-
-   const calculateTotalPrice = () => {
-      const base = totalPrice + selectedPayment.price + selectedDelivery.price;
-      return appliedPromo ? Math.max(0, base - appliedPromo.discountAmount) : base;
-   };
-
-   const handleCompleteOrderClick = async () => {
-      setValidationError('');
-
-      if (selectedDelivery.id === 1 && !selectedAddress.trim()) {
-         setValidationError('Please enter your delivery address.');
-         return;
-      }
-      if (selectedDelivery.id !== 1 && !selectedAddress) {
-         setValidationError('Please select a pickup point for the chosen delivery method.');
-         return;
-      }
-      if (!user) {
-         if (!first_name.trim() || !last_name.trim() || !email.trim()) {
-            setValidationError('Please fill in your name and email to complete the order.');
-            return;
-         }
-      }
-
-      // Increment promo usedCount
-      if (appliedPromo) {
-         try {
-            await updatePromoCode({ ...appliedPromo, usedCount: appliedPromo.usedCount + 1 });
-         } catch { /* non-blocking */ }
-      }
-
-      const orderData = {
-         payment:       selectedPayment,
-         delivery:      selectedDelivery,
-         address:       selectedAddress,
-         totalPrice:    calculateTotalPrice(),
-         first_name:    user ? (user.first_name || '') : first_name,
-         last_name:     user ? (user.last_name  || '') : last_name,
-         email:         user ? (user.email      || '') : email,
-         promoCode:     appliedPromo?.code || null,
-         promoDiscount: appliedPromo?.discountAmount || 0,
-      };
-
-      handleCompleteOrder(orderData);
-   };
-
-   return (
-      <div className={s.paymentDeliveryStep}>
-         <h2>Payment &amp; Delivery</h2>
-
-         {/* Payment */}
-         <h3>Payment method:</h3>
-         {paymentOptions.map((p) => (
-            <div key={p.id} className={s.option}>
-               <label>
-                  <input type="radio" checked={selectedPayment.id === p.id} onChange={() => setSelectedPayment(p)} />
-                  {' '}{p.type}{p.price > 0 && ` (+$${p.price})`}
-               </label>
+export const PaymentAndDeliveryStep = ({
+   delivery, setDelivery,
+   payment,  setPayment,
+   address,  setAddress,
+   firstName, setFirstName,
+   lastName,  setLastName,
+   email,     setEmail,
+   user,
+   validationError,
+}) => (
+   <div>
+      {/* Guest contact info */}
+      {!user && (
+         <div className={s.card}>
+            <div className={s.cardTitle}>👤 Contact info</div>
+            <div className={s.guestNotice}>
+               ℹ️ You're checking out as a guest — fill in your details below.
             </div>
-         ))}
-
-         {/* Delivery */}
-         <h3>Delivery method:</h3>
-         {deliveryOptions.map((d) => (
-            <div key={d.id} className={s.option}>
-               <label>
-                  <input type="radio" checked={selectedDelivery.id === d.id} onChange={() => handleDeliveryChange(d)} />
-                  {' '}{d.type} (+${d.price})
-               </label>
-               {d.addresses.length > 0 && selectedDelivery.id === d.id && (
-                  <select value={selectedAddress} onChange={(e) => setSelectedAddress(e.target.value)} style={{ display: 'block', marginTop: 6, width: '100%', padding: '6px 8px' }}>
-                     <option value="">— Select a pickup point —</option>
-                     {d.addresses.map((addr, i) => (
-                        <option key={i} value={addr}>{addr}</option>
-                     ))}
-                  </select>
-               )}
-            </div>
-         ))}
-
-         {/* Home delivery — manual address input */}
-         {selectedDelivery.id === 1 && (
-            <div className={s.addressInput}>
-               <label>
-                  Your address:
-                  <input type="text" value={selectedAddress} onChange={(e) => setSelectedAddress(e.target.value)} placeholder="Street, city, postal code" />
-               </label>
-            </div>
-         )}
-
-         {/* Guest fields */}
-         {!user && (
-            <>
-               <h3>Contact info:</h3>
-               <div className={s.nameInput}>
-                  <label>First Name</label>
-                  <input type="text" value={first_name} onChange={(e) => setFirstName(e.target.value)} placeholder="First name" />
+            <div className={s.fieldRow}>
+               <div className={s.fieldGroup}>
+                  <label className={s.fieldLabel}>First Name *</label>
+                  <input className={s.fieldInput} value={firstName} onChange={e => setFirstName(e.target.value)} placeholder="First name" />
                </div>
-               <div className={s.nameInput}>
-                  <label>Last Name</label>
-                  <input type="text" value={last_name} onChange={(e) => setLastName(e.target.value)} placeholder="Last name" />
+               <div className={s.fieldGroup}>
+                  <label className={s.fieldLabel}>Last Name *</label>
+                  <input className={s.fieldInput} value={lastName} onChange={e => setLastName(e.target.value)} placeholder="Last name" />
                </div>
-               <div className={s.emailInput}>
-                  <label>Email</label>
-                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email@example.com" />
-               </div>
-            </>
-         )}
-
-         {/* Promo code */}
-         <h3>Promo Code:</h3>
-         {appliedPromo ? (
-            <div className={s.promoApplied}>
-               <span>🎉 <strong>{appliedPromo.code}</strong> — -${appliedPromo.discountAmount.toFixed(2)}</span>
-               <button className={s.removePromo} onClick={handleRemovePromo}>Remove</button>
             </div>
-         ) : (
-            <div className={s.promoRow}>
-               <input
-                  type="text"
-                  className={s.promoInput}
-                  placeholder="Enter promo code"
-                  value={promoInput}
-                  onChange={(e) => setPromoInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleApplyPromo()}
-               />
-               <button className={s.promoBtn} onClick={handleApplyPromo}>Apply</button>
+            <div className={s.fieldGroup}>
+               <label className={s.fieldLabel}>Email *</label>
+               <input className={s.fieldInput} type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="email@example.com" />
             </div>
-         )}
-         {promoMsg   && <div className={s.promoSuccess}>{promoMsg}</div>}
-         {promoError && <div className={s.promoError}>{promoError}</div>}
-
-         {validationError && (
-            <div className={s.validationError}>{validationError}</div>
-         )}
-
-         <div className={s.totalPrice}>
-            {appliedPromo && (
-               <div className={s.promoSavings}>
-                  <span>Discount: -${appliedPromo.discountAmount.toFixed(2)}</span>
-               </div>
-            )}
-            Total: {calculateTotalPrice().toFixed(2)} {currency}
          </div>
+      )}
 
-         <button onClick={handleCompleteOrderClick} className={s.completeOrderButton}>
-            Complete Order
-         </button>
+      {/* Delivery */}
+      <div className={s.card}>
+         <div className={s.cardTitle}>🚚 Delivery method</div>
+         <div className={s.optionCards}>
+            {DELIVERY_OPTIONS.map((d) => (
+               <div key={d.id}>
+                  <div
+                     className={`${s.optionCard} ${delivery.id === d.id ? s.optionCardActive : ''}`}
+                     onClick={() => { setDelivery(d); setAddress(''); }}
+                  >
+                     <span className={s.optionIcon}>{d.icon}</span>
+                     <div className={s.optionBody}>
+                        <div className={s.optionName}>{d.name}</div>
+                        <div className={s.optionDesc}>{d.desc}</div>
+                     </div>
+                     <span className={`${s.optionPrice} ${d.price === 0 ? s.free : ''}`}>
+                        {d.price === 0 ? 'Free' : `+$${d.price}`}
+                     </span>
+                     <div className={s.optionCheck} />
+                  </div>
+
+                  {/* Address input for Home Delivery */}
+                  {delivery.id === d.id && d.id === 1 && (
+                     <div className={s.fieldGroup} style={{ marginTop: 10 }}>
+                        <label className={s.fieldLabel}>Delivery address *</label>
+                        <input
+                           className={s.fieldInput}
+                           value={address}
+                           onChange={e => setAddress(e.target.value)}
+                           placeholder="Street, city, postal code"
+                        />
+                     </div>
+                  )}
+
+                  {/* Pickup point select */}
+                  {delivery.id === d.id && d.addresses.length > 0 && (
+                     <select
+                        className={s.pickupSelect}
+                        value={address}
+                        onChange={e => setAddress(e.target.value)}
+                     >
+                        <option value="">— Select a pickup point —</option>
+                        {d.addresses.map((a) => (
+                           <option key={a} value={a}>{a}</option>
+                        ))}
+                     </select>
+                  )}
+               </div>
+            ))}
+         </div>
       </div>
-   );
-};
+
+      {/* Payment */}
+      <div className={s.card}>
+         <div className={s.cardTitle}>💳 Payment method</div>
+         <div className={s.optionCards}>
+            {PAYMENT_OPTIONS.map((p) => (
+               <div
+                  key={p.id}
+                  className={`${s.optionCard} ${payment.id === p.id ? s.optionCardActive : ''}`}
+                  onClick={() => setPayment(p)}
+               >
+                  <span className={s.optionIcon}>{p.icon}</span>
+                  <div className={s.optionBody}>
+                     <div className={s.optionName}>{p.name}</div>
+                     <div className={s.optionDesc}>{p.desc}</div>
+                  </div>
+                  <span className={`${s.optionPrice} ${p.price === 0 ? s.free : ''}`}>
+                     {p.price === 0 ? 'Free' : `+$${p.price}`}
+                  </span>
+                  <div className={s.optionCheck} />
+               </div>
+            ))}
+         </div>
+      </div>
+
+      {validationError && (
+         <div className={s.validationError}>⚠️ {validationError}</div>
+      )}
+   </div>
+);
