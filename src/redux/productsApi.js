@@ -7,7 +7,7 @@ const resource = 'products';
 export const productsApi = createApi({
    reducerPath: 'productApi',
    tagTypes: [typeTag],
-   baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
+   baseQuery: fetchBaseQuery({ baseUrl }),
 
    endpoints: (build) => ({
       getProducts: build.query({
@@ -20,15 +20,41 @@ export const productsApi = createApi({
                ]
                : [{ type: typeTag, id: 'LIST' }],
       }),
+
+      addProduct: build.mutation({
+         query: (body) => ({
+            url: resource,
+            method: 'POST',
+            body,
+         }),
+         invalidatesTags: [{ type: typeTag, id: 'LIST' }],
+      }),
+
       updateProduct: build.mutation({
          query: ({ productId, body }) => ({
             url: `${resource}/${productId}`,
             method: 'PUT',
             body,
          }),
+         invalidatesTags: (result, error, { productId }) => [
+            { type: typeTag, id: productId },
+            { type: typeTag, id: 'LIST' },
+         ],
+      }),
+
+      deleteProduct: build.mutation({
+         query: (id) => ({
+            url: `${resource}/${id}`,
+            method: 'DELETE',
+         }),
          invalidatesTags: [{ type: typeTag, id: 'LIST' }],
       }),
    }),
 });
 
-export const { useGetProductsQuery, useUpdateProductMutation } = productsApi;
+export const {
+   useGetProductsQuery,
+   useAddProductMutation,
+   useUpdateProductMutation,
+   useDeleteProductMutation,
+} = productsApi;

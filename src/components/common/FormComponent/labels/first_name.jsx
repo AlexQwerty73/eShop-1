@@ -1,22 +1,22 @@
-
 import styles from '.././formComponent.module.css';
 
-export const First_name = ({ register, errors }) => {
-   const name = 'last_name';
+export const FirstName = ({ register, errors }) => {
+   const name = 'first_name';
 
    return (
       <div className={styles.input_container}>
          <label>
-            <div className={styles.title}>Name:</div>
+            <div className={styles.title}>First Name:</div>
             <input
-            placeholder='first name'
+               placeholder="First name"
                type="text"
-               {...register(name, {
-                  required: 'Name is required'
-               })}
+               {...register(name, { required: 'First name is required' })}
             />
          </label>
-         {errors[name] && <p>{errors[name].message}</p>}
+         {errors[name] && <p className={styles.error}>{errors[name].message}</p>}
       </div>
    );
 };
+
+// Keep old name for backward compatibility
+export const First_name = FirstName;

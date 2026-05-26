@@ -1,0 +1,132 @@
+.back {
+   display: inline-block;
+   margin: 20px 0 16px;
+   color: #3b82f6;
+   text-decoration: none;
+   font-size: 14px;
+}
+
+.back:hover { text-decoration: underline; }
+
+.card {
+   background: #fff;
+   border: 1px solid #e5e7eb;
+   border-radius: 12px;
+   padding: 28px;
+   margin-bottom: 40px;
+   box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.topRow {
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-start;
+   gap: 12px;
+   margin-bottom: 8px;
+   flex-wrap: wrap;
+}
+
+.title {
+   font-size: 24px;
+   margin: 0 0 4px;
+}
+
+.id {
+   color: #888;
+   font-size: 13px;
+   margin: 0;
+}
+
+.badges {
+   display: flex;
+   gap: 8px;
+   flex-wrap: wrap;
+}
+
+.badgeActive   { background: #dcfce7; color: #15803d; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+.badgeCancelled{ background: #fee2e2; color: #b91c1c; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+.badgeDelivered{ background: #dbeafe; color: #1d4ed8; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+.badgePending  { background: #fef9c3; color: #92400e; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+
+.printBtn {
+   padding: 6px 14px;
+   background: #6b7280;
+   color: white;
+   border: none;
+   border-radius: 20px;
+   font-size: 13px;
+   font-weight: 600;
+   cursor: pointer;
+   transition: opacity 0.2s;
+}
+
+.printBtn:hover { opacity: 0.85; }
+
+@media print {
+   header, footer, .printBtn, nav { display: none !important; }
+}
+
+.date {
+   color: #555;
+   margin-bottom: 20px;
+}
+
+.section {
+   margin-bottom: 20px;
+}
+
+.section h2 {
+   font-size: 16px;
+   font-weight: 700;
+   border-bottom: 1px solid #e5e7eb;
+   padding-bottom: 6px;
+   margin-bottom: 10px;
+}
+
+.section p {
+   margin: 4px 0;
+   font-size: 14px;
+}
+
+.row2col {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 16px;
+   margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+   .row2col { grid-template-columns: 1fr; }
+}
+
+.table {
+   width: 100%;
+   border-collapse: collapse;
+   font-size: 14px;
+}
+
+.table th, .table td {
+   border: 1px solid #e5e7eb;
+   padding: 8px 12px;
+   text-align: left;
+}
+
+.table th {
+   background: #f9fafb;
+   font-weight: 600;
+}
+
+.prodLink {
+   color: #3b82f6;
+   text-decoration: none;
+}
+
+.prodLink:hover { text-decoration: underline; }
+
+.total {
+   text-align: right;
+   font-size: 20px;
+   margin-top: 16px;
+   padding-top: 12px;
+   border-top: 2px solid #e5e7eb;
+}

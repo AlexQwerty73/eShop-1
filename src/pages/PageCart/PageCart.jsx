@@ -1,30 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import s from './pageCart.module.css';
 import { loadFromLocalStorage, priceWithDiscount, saveToLocalStorage } from '../../utils';
-import { useGetProductsQuery, useGetUsersQuery, useUpdateUserMutation } from '../../redux';
-
+import {
+   useGetProductsQuery,
+   useGetUsersQuery,
+   useUpdateUserMutation,
+   useUpdateProductMutation,
+} from '../../redux';
 import { EmptyCartMessage, CartTable, BuyButton, PaymentAndDeliveryStep } from './components';
+import { useAuth } from '../../context/AuthContext';
+import { useCart } from '../../context/CartContext';
+import { usePageTitle } from '../../hooks';
+import { useNavigate } from 'react-router-dom';
 
 export const PageCart = () => {
-   const [cart, setCart] = useState(loadFromLocalStorage('cart'));
+   usePageTitle('Cart');
+   const navigate = useNavigate();
+   const [cart, setCart] = useState(loadFromLocalStorage('cart') || {});
    const [productsWithQty, setProductsWithQty] = useState([]);
-   const { data: products, isLoading, error } = useGetProductsQuery();
-   const [updateUser] = useUpdateUserMutation();
+   const [orderSuccess, setOrderSuccess] = useState(false);
 
-   const userId = loadFromLocalStorage('user');
-   const userData = useGetUsersQuery(userId);
+   const { data: products, isLoading } = useGetProductsQuery();
+   const [updateUser] = useUpdateUserMutation();
+   const [updateProduct] = useUpdateProductMutation();
+   const { refreshCart } = useCart();
+
+   const { userId } = useAuth();
+   const userData = useGetUsersQuery(userId, { skip: !userId });
    const [showPaymentStep, setShowPaymentStep] = useState(false);
 
    useEffect(() => {
       if (products) {
-         const updatedProducts = Object.entries(cart).map(([productId, qty]) => {
-            const product = products.find(p => p.id === productId);
-            if (product) {
-               return { product, qty };
-            }
-            return null;
+         const updated = Object.entries(cart).map(([productId, qty]) => {
+            const product = products.find((p) => p.id === productId);
+            return product ? { product, qty } : null;
          }).filter(Boolean);
-         setProductsWithQty(updatedProducts);
+         setProductsWithQty(updated);
       }
    }, [cart, products]);
 
@@ -33,6 +44,7 @@ export const PageCart = () => {
       const updatedCart = { ...cart, [productId]: newQuantity };
       setCart(updatedCart);
       saveToLocalStorage('cart', updatedCart);
+      refreshCart();
    };
 
    const handleDeleteItem = (productId) => {
@@ -40,58 +52,95 @@ export const PageCart = () => {
       delete updatedCart[productId];
       setCart(updatedCart);
       saveToLocalStorage('cart', updatedCart);
-   };
-
-   const handleBuy = () => {
-      setShowPaymentStep(true);
+      refreshCart();
    };
 
    const handleCompleteOrder = async (orderData) => {
-      if (!userData) return;
+      const currentUser = userData?.data;
 
-      const currentUser = userData.data;
-      const date = new Date().toISOString();
+      // Build order snapshot
+      const orderProducts = Object.keys(cart).map((productId) => {
+         const found = products?.find((p) => p.id === productId);
+         if (!found) return null;
+         return {
+            id: productId,
+            price: found.price,
+            name: found.name,
+            discount: found.discount,
+            quantity: cart[productId],
+         };
+      }).filter(Boolean);
+
       const order = {
-         date,
+         id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+         date: new Date().toISOString(),
          isDelivered: false,
+         isCancelled: false,
          delivery: orderData.delivery,
          payment: orderData.payment,
          totalPrice: orderData.totalPrice,
          address: orderData.address,
-         first_name: userId ? currentUser.first_name : orderData.first_name,
-         last_name: userId ? currentUser.last_name : orderData.last_name,
-         email: userId ? currentUser.email : orderData.email,
-         products: Object.keys(cart).map(productId => ({
-            id: productId,
-            price: products.find(p => p.id === productId).price,
-            name: products.find(p => p.id === productId).name,
-            discount: products.find(p => p.id === productId).discount,
-            quantity: cart[productId]
-            
-         }))
+         first_name: currentUser?.first_name || orderData.first_name || '',
+         last_name: currentUser?.last_name  || orderData.last_name  || '',
+         email:      currentUser?.email      || orderData.email      || '',
+         promoCode:     orderData.promoCode     || null,
+         promoDiscount: orderData.promoDiscount || 0,
+         products: orderProducts,
       };
 
       try {
-         if (currentUser && currentUser.orders) {
-            const updatedOrders = [...currentUser.orders, order];
-            await updateUser({ ...currentUser, orders: updatedOrders });
-         } else {
-            await updateUser({ ...currentUser, orders: [order] });
+         // Save to user history only if logged in
+         if (currentUser) {
+            const existingOrders = currentUser.orders || [];
+            await updateUser({ ...currentUser, orders: [...existingOrders, order] });
+         }
+
+         // Decrease inventory for everyone (guest and logged-in)
+         for (const [productId, qty] of Object.entries(cart)) {
+            const product = products?.find((p) => p.id === productId);
+            if (product) {
+               const newInventory = Math.max(0, product.inventory - qty);
+               await updateProduct({
+                  productId: product.id,
+                  body: { ...product, inventory: newInventory },
+               });
+            }
          }
 
          setCart({});
          saveToLocalStorage('cart', {});
          setShowPaymentStep(false);
+         refreshCart();
+         setOrderSuccess(true);
       } catch (error) {
-         console.error("Error completing order:", error);
+         console.error('Error completing order:', error);
       }
    };
 
+   const totalPriceOfEverything = productsWithQty.reduce(
+      (total, { product, qty }) => total + priceWithDiscount(product) * qty,
+      0
+   );
+   // Use the most common currency in cart (fallback USD)
+   const cartCurrency = productsWithQty[0]?.product?.currency || 'USD';
 
+   if (isLoading) return <div className="container"><p>Loading...</p></div>;
 
-   const totalPriceOfEverything = productsWithQty.reduce((total, { product, qty }) => {
-      return total + (priceWithDiscount(product) * qty);
-   }, 0);
+   if (orderSuccess) {
+      return (
+         <div className={s.pageCart}>
+            <div className="container">
+               <div className={s.successOrder}>
+                  <h2>🎉 Order placed successfully!</h2>
+                  <p>Thank you for your purchase. {userId ? 'You can track it in My Orders.' : ''}</p>
+                  <button className={s.buyButton} onClick={() => { setOrderSuccess(false); navigate('/'); }}>
+                     Continue Shopping
+                  </button>
+               </div>
+            </div>
+         </div>
+      );
+   }
 
    return (
       <div className={s.pageCart}>
@@ -107,15 +156,18 @@ export const PageCart = () => {
                />
             )}
             <div className={s.b_part}>
-               <div className={s.totalPrice}>Total Price of Everything: {totalPriceOfEverything.toFixed(2)}</div>
+               <div className={s.totalPrice}>
+                  Total: {totalPriceOfEverything.toFixed(2)} {cartCurrency}
+               </div>
                {showPaymentStep ? (
                   <PaymentAndDeliveryStep
                      totalPrice={totalPriceOfEverything}
                      handleCompleteOrder={handleCompleteOrder}
                      user={userData?.data}
+                     currency={cartCurrency}
                   />
                ) : (
-                  <BuyButton handleBuy={handleBuy} />
+                  productsWithQty.length > 0 && <BuyButton handleBuy={() => setShowPaymentStep(true)} />
                )}
             </div>
          </div>

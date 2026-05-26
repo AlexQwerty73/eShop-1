@@ -1,0 +1,202 @@
+.page {
+   padding: 32px 0 60px;
+}
+
+.title {
+   font-size: 28px;
+   font-weight: 700;
+   margin-bottom: 20px;
+}
+
+/* Tabs */
+.tabs {
+   display: flex;
+   gap: 6px;
+   margin-bottom: 24px;
+   border-bottom: 2px solid #e5e7eb;
+   padding-bottom: 0;
+   flex-wrap: wrap;
+}
+
+.tab {
+   padding: 10px 20px;
+   background: none;
+   border: none;
+   border-bottom: 2px solid transparent;
+   margin-bottom: -2px;
+   cursor: pointer;
+   font-size: 14px;
+   font-weight: 600;
+   color: #6b7280;
+   transition: all 0.2s;
+}
+
+.tab:hover { color: rgb(0, 147, 147); }
+
+.tabActive {
+   color: rgb(0, 147, 147);
+   border-bottom-color: rgb(0, 147, 147);
+}
+
+/* Sections */
+.section { margin-top: 8px; }
+
+.sectionHeader {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 14px;
+}
+
+.sectionHeader h2 { margin: 0; }
+
+/* Stat grid */
+.statGrid {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+   gap: 14px;
+   margin-bottom: 24px;
+}
+
+.statCard {
+   background: #f0fdf4;
+   border: 1px solid #bbf7d0;
+   border-radius: 10px;
+   padding: 18px 20px;
+   text-align: center;
+}
+
+.statValue {
+   font-size: 28px;
+   font-weight: 700;
+   color: #15803d;
+}
+
+.statLabel {
+   font-size: 13px;
+   color: #4b5563;
+   margin-top: 4px;
+}
+
+.topProduct {
+   background: #fffbeb;
+   border: 1px solid #fde68a;
+   border-radius: 8px;
+   padding: 14px 18px;
+   margin-bottom: 16px;
+}
+
+.topProduct h3 {
+   font-size: 15px;
+   margin-bottom: 6px;
+   color: #92400e;
+}
+
+.topLink {
+   color: #3b82f6;
+   text-decoration: none;
+   font-size: 14px;
+}
+
+.topLink:hover { text-decoration: underline; }
+
+.quickLinks {
+   display: flex;
+   gap: 10px;
+   flex-wrap: wrap;
+}
+
+.quickBtn {
+   padding: 9px 18px;
+   background: rgb(0, 147, 147);
+   color: white;
+   border: none;
+   border-radius: 6px;
+   cursor: pointer;
+   font-size: 14px;
+   font-weight: 600;
+   text-decoration: none;
+   display: inline-block;
+   transition: opacity 0.2s;
+}
+
+.quickBtn:hover { opacity: 0.85; }
+
+/* Table */
+.table {
+   width: 100%;
+   border-collapse: collapse;
+   font-size: 14px;
+   margin-top: 12px;
+}
+
+.table th, .table td {
+   border: 1px solid #e5e7eb;
+   padding: 9px 12px;
+   text-align: left;
+}
+
+.table th {
+   background: #f9fafb;
+   font-weight: 600;
+   color: #374151;
+}
+
+.table tr:hover td { background: #f0f9ff; }
+
+.tableLink { color: #3b82f6; text-decoration: none; }
+.tableLink:hover { text-decoration: underline; }
+
+.outStock { color: #ef4444; font-weight: 600; }
+
+/* Status badges */
+.active   { background: #dcfce7; color: #15803d; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.inactive { background: #fee2e2; color: #b91c1c; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+
+.code { background: #f3f4f6; padding: 2px 7px; border-radius: 4px; font-size: 13px; }
+
+.actionCell { display: flex; gap: 6px; align-items: center; }
+
+.editSmallBtn  { padding: 4px 10px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; }
+.deactivateBtn { padding: 4px 10px; background: #f59e0b; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; }
+.activateBtn   { padding: 4px 10px; background: #22c55e; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; }
+
+/* Promo edit form */
+.promoEditForm {
+   background: #f8fafc;
+   border: 1px solid #e2e8f0;
+   border-radius: 10px;
+   padding: 20px;
+   margin-bottom: 20px;
+}
+
+.promoEditForm h3 { margin-bottom: 14px; font-size: 16px; }
+
+.promoEditGrid {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+   gap: 12px;
+   margin-bottom: 14px;
+}
+
+.promoEditGrid label {
+   display: flex;
+   flex-direction: column;
+   gap: 4px;
+   font-size: 13px;
+   font-weight: 600;
+   color: #374151;
+}
+
+.promoEditGrid input,
+.promoEditGrid select {
+   padding: 7px 10px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   font-size: 14px;
+}
+
+.promoEditActions { display: flex; gap: 10px; }
+
+.saveBtn   { padding: 8px 18px; background: #22c55e; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
+.cancelBtn { padding: 8px 18px; background: #6b7280; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }

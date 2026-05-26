@@ -1,0 +1,45 @@
+.page {
+   min-height: 60vh;
+   display: flex;
+   align-items: center;
+}
+
+.content {
+   text-align: center;
+   padding: 60px 0;
+}
+
+.code {
+   font-size: 120px;
+   font-weight: 900;
+   color: #e5e7eb;
+   line-height: 1;
+   letter-spacing: -4px;
+}
+
+.title {
+   font-size: 32px;
+   font-weight: 700;
+   color: #1f2937;
+   margin: 8px 0 12px;
+}
+
+.subtitle {
+   color: #6b7280;
+   font-size: 16px;
+   margin-bottom: 28px;
+}
+
+.homeBtn {
+   display: inline-block;
+   padding: 12px 28px;
+   background: rgb(0, 147, 147);
+   color: white;
+   text-decoration: none;
+   border-radius: 8px;
+   font-size: 15px;
+   font-weight: 600;
+   transition: opacity 0.2s;
+}
+
+.homeBtn:hover { opacity: 0.85; }

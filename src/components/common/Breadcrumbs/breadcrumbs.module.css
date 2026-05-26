@@ -1,0 +1,42 @@
+.nav {
+   padding: 12px 0 6px;
+}
+
+.list {
+   list-style: none;
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+   gap: 4px;
+   padding: 0;
+   margin: 0;
+}
+
+.item {
+   display: flex;
+   align-items: center;
+   gap: 4px;
+}
+
+.link {
+   color: #6b7280;
+   text-decoration: none;
+   font-size: 13px;
+   transition: color 0.2s;
+}
+
+.link:hover {
+   color: rgb(0, 147, 147);
+   text-decoration: underline;
+}
+
+.sep {
+   color: #d1d5db;
+   font-size: 14px;
+}
+
+.current {
+   color: #1f2937;
+   font-size: 13px;
+   font-weight: 500;
+}

@@ -1,11 +1,192 @@
-.form {
-   box-shadow: 1px 1px 5px 0 silver;
-   border-radius: 10px;
-   width: 500px;
-   padding: 20px;
+/* ── Page wrapper ──────────────────────────────────────── */
+.page {
+   min-height: calc(100vh - 66px);
+   display: flex;
+   align-items: stretch;
+   background: #f8fafb;
+}
 
+/* ── Left decorative panel ─────────────────────────────── */
+.panel {
+   flex: 0 0 420px;
+   background: linear-gradient(145deg, rgb(0, 110, 110) 0%, rgb(0, 160, 160) 60%, rgb(0, 185, 170) 100%);
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   padding: 60px 48px;
+   color: #fff;
+   position: relative;
+   overflow: hidden;
+}
+
+/* background blobs */
+.panel::before,
+.panel::after {
+   content: '';
    position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
+   border-radius: 50%;
+   background: rgba(255, 255, 255, 0.07);
+}
+
+.panel::before {
+   width: 320px;
+   height: 320px;
+   bottom: -80px;
+   right: -80px;
+}
+
+.panel::after {
+   width: 200px;
+   height: 200px;
+   top: -50px;
+   left: -50px;
+}
+
+.panelIcon {
+   font-size: 72px;
+   margin-bottom: 28px;
+   filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+   position: relative;
+   z-index: 1;
+}
+
+.panelTitle {
+   font-size: 28px;
+   font-weight: 800;
+   margin: 0 0 12px;
+   text-align: center;
+   line-height: 1.2;
+   position: relative;
+   z-index: 1;
+}
+
+.panelSub {
+   font-size: 15px;
+   color: rgba(255, 255, 255, 0.82);
+   text-align: center;
+   line-height: 1.6;
+   max-width: 280px;
+   position: relative;
+   z-index: 1;
+}
+
+.panelFeatures {
+   list-style: none;
+   margin: 32px 0 0;
+   padding: 0;
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+   position: relative;
+   z-index: 1;
+   align-self: flex-start;
+   width: 100%;
+}
+
+.panelFeatures li {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   font-size: 14px;
+   color: rgba(255, 255, 255, 0.9);
+}
+
+.panelFeatures li span:first-child {
+   font-size: 18px;
+}
+
+/* ── Right form panel ──────────────────────────────────── */
+.formSide {
+   flex: 1;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 48px 24px;
+}
+
+.formCard {
+   width: 100%;
+   max-width: 420px;
+}
+
+.formHeader {
+   margin-bottom: 32px;
+}
+
+.formTitle {
+   font-size: 28px;
+   font-weight: 800;
+   color: #111827;
+   margin: 0 0 6px;
+}
+
+.formSubtitle {
+   font-size: 14px;
+   color: #6b7280;
+   margin: 0;
+}
+
+/* ── Error message ─────────────────────────────────────── */
+.error {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   background: #fef2f2;
+   border: 1px solid #fca5a5;
+   border-radius: 8px;
+   padding: 10px 14px;
+   color: #dc2626;
+   font-size: 13px;
+   font-weight: 500;
+   margin-top: 12px;
+}
+
+/* ── Divider ───────────────────────────────────────────── */
+.divider {
+   display: flex;
+   align-items: center;
+   gap: 12px;
+   margin: 20px 0;
+   color: #d1d5db;
+   font-size: 12px;
+}
+
+.divider::before,
+.divider::after {
+   content: '';
+   flex: 1;
+   height: 1px;
+   background: #e5e7eb;
+}
+
+/* ── Bottom link ───────────────────────────────────────── */
+.bottomText {
+   margin-top: 20px;
+   text-align: center;
+   font-size: 14px;
+   color: #6b7280;
+}
+
+.bottomText a {
+   color: rgb(0, 147, 147);
+   font-weight: 600;
+   text-decoration: none;
+   margin-left: 4px;
+}
+
+.bottomText a:hover {
+   text-decoration: underline;
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 860px) {
+   .panel { display: none; }
+   .page  { background: #fff; }
+   .formSide { padding: 40px 20px; align-items: flex-start; padding-top: 60px; }
+}
+
+@media (max-width: 480px) {
+   .formSide { padding: 32px 16px; }
+   .formTitle { font-size: 24px; }
 }

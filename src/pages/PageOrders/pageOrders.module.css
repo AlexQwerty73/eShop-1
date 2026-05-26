@@ -1,6 +1,30 @@
+.header {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   flex-wrap: wrap;
+   gap: 12px;
+   margin-bottom: 16px;
+}
+
+.exportBtn {
+   padding: 8px 16px;
+   background: #22c55e;
+   color: white;
+   border: none;
+   border-radius: 6px;
+   cursor: pointer;
+   font-weight: 600;
+   font-size: 14px;
+   transition: opacity 0.2s;
+}
+
+.exportBtn:hover { opacity: 0.85; }
+
 .table {
    width: 100%;
    border-collapse: collapse;
+   font-size: 14px;
 }
 
 .tableHeader {
@@ -11,10 +35,16 @@
    border: 1px solid #ddd;
    padding: 8px;
    text-align: left;
+   vertical-align: top;
 }
 
 .rowEven {
-   background-color: #f2f2f2;
+   background-color: #f9f9f9;
+}
+
+.cancelled {
+   opacity: 0.55;
+   text-decoration: line-through;
 }
 
 .list {
@@ -26,3 +56,86 @@
    list-style: none;
    margin-bottom: 5px;
 }
+
+.cancelledBadge {
+   background: #fee2e2;
+   color: #b91c1c;
+   font-size: 12px;
+   padding: 2px 8px;
+   border-radius: 20px;
+   font-weight: 600;
+}
+
+.activeBadge {
+   background: #dcfce7;
+   color: #15803d;
+   font-size: 12px;
+   padding: 2px 8px;
+   border-radius: 20px;
+   font-weight: 600;
+}
+
+.cancelBtn {
+   background: #ef4444;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   padding: 4px 10px;
+   cursor: pointer;
+   font-size: 12px;
+   margin-right: 6px;
+   transition: opacity 0.2s;
+}
+
+.cancelBtn:hover { opacity: 0.85; }
+
+.detailBtn {
+   background: #3b82f6;
+   color: white;
+   border-radius: 5px;
+   padding: 4px 10px;
+   font-size: 12px;
+   text-decoration: none;
+   display: inline-block;
+}
+
+.detailBtn:hover { opacity: 0.85; }
+
+.orderLink {
+   color: #3b82f6;
+   text-decoration: none;
+}
+
+.orderLink:hover { text-decoration: underline; }
+
+/* Order search + filter */
+.orderFilters {
+   display: flex;
+   gap: 10px;
+   margin-bottom: 16px;
+   flex-wrap: wrap;
+}
+
+.orderSearch {
+   flex: 1;
+   min-width: 200px;
+   padding: 8px 12px;
+   font-size: 14px;
+   border: 1px solid #ccc;
+   border-radius: 6px;
+   outline: none;
+}
+
+.orderSearch:focus { border-color: rgb(0, 147, 147); }
+
+.statusSelect {
+   padding: 8px 12px;
+   font-size: 14px;
+   border: 1px solid #ccc;
+   border-radius: 6px;
+   background: white;
+   cursor: pointer;
+   outline: none;
+}
+
+.statusSelect:focus { border-color: rgb(0, 147, 147); }

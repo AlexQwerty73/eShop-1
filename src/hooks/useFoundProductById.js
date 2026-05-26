@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 export const useFoundProductById = (cart) => {
    const [productsWithQty, setProductsWithQty] = useState([]);
 
-   const { data: fetchedProducts, isLoading, error } = useGetProductsQuery();
+   const { data: fetchedProducts } = useGetProductsQuery();
 
    useEffect(() => {
       if (fetchedProducts) {
@@ -17,7 +17,7 @@ export const useFoundProductById = (cart) => {
          }).filter(Boolean);
          setProductsWithQty(updatedProducts);
       }
-   }, [fetchedProducts]);
+   }, [fetchedProducts, cart]);
 
    return productsWithQty;
 };

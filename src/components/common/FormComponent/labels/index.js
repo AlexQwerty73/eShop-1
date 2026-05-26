@@ -6,3 +6,4 @@ export * from './Email';
 export * from './Address';
 export * from './Password';
 export * from './Phone';
+export * from './ConfirmPassword';

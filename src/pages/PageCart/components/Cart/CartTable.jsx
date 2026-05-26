@@ -7,10 +7,10 @@ export const CartTable = ({ productsWithQty, handleQuantityChange, handleDeleteI
       <table className={s.table}>
          <thead>
             <tr>
-               <th className={s.headerCell}>Name</th>
+               <th className={s.headerCell}>Product</th>
                <th className={s.headerCell}>Price</th>
                <th className={s.headerCell}>Quantity</th>
-               <th className={s.headerCell}>Total Price</th>
+               <th className={s.headerCell}>Total</th>
                <th className={s.headerCell}>Action</th>
             </tr>
          </thead>

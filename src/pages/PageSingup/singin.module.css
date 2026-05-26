@@ -1,0 +1,201 @@
+/* ── Page wrapper ──────────────────────────────────────── */
+.page {
+   min-height: calc(100vh - 66px);
+   display: flex;
+   align-items: stretch;
+   background: #f8fafb;
+}
+
+/* ── Left decorative panel ─────────────────────────────── */
+.panel {
+   flex: 0 0 380px;
+   background: linear-gradient(155deg, rgb(17, 24, 60) 0%, rgb(30, 58, 110) 50%, rgb(29, 78, 140) 100%);
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   padding: 60px 44px;
+   color: #fff;
+   position: relative;
+   overflow: hidden;
+}
+
+.panel::before,
+.panel::after {
+   content: '';
+   position: absolute;
+   border-radius: 50%;
+   background: rgba(255, 255, 255, 0.05);
+}
+
+.panel::before {
+   width: 360px;
+   height: 360px;
+   bottom: -100px;
+   right: -100px;
+}
+
+.panel::after {
+   width: 220px;
+   height: 220px;
+   top: -60px;
+   left: -60px;
+   background: rgba(255, 255, 255, 0.07);
+}
+
+.panelIcon {
+   font-size: 68px;
+   margin-bottom: 24px;
+   position: relative;
+   z-index: 1;
+   filter: drop-shadow(0 4px 16px rgba(0,0,0,0.3));
+}
+
+.panelTitle {
+   font-size: 26px;
+   font-weight: 800;
+   margin: 0 0 12px;
+   text-align: center;
+   line-height: 1.25;
+   position: relative;
+   z-index: 1;
+}
+
+.panelSub {
+   font-size: 14px;
+   color: rgba(255, 255, 255, 0.75);
+   text-align: center;
+   line-height: 1.65;
+   max-width: 270px;
+   position: relative;
+   z-index: 1;
+}
+
+.steps {
+   margin: 36px 0 0;
+   padding: 0;
+   list-style: none;
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+   position: relative;
+   z-index: 1;
+   width: 100%;
+}
+
+.steps li {
+   display: flex;
+   align-items: center;
+   gap: 14px;
+   font-size: 13px;
+   color: rgba(255, 255, 255, 0.88);
+}
+
+.stepNum {
+   width: 28px;
+   height: 28px;
+   border-radius: 50%;
+   background: rgba(255, 255, 255, 0.15);
+   border: 1.5px solid rgba(255, 255, 255, 0.3);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 12px;
+   font-weight: 700;
+   flex-shrink: 0;
+}
+
+/* ── Right form panel ──────────────────────────────────── */
+.formSide {
+   flex: 1;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 40px 24px;
+}
+
+.formCard {
+   width: 100%;
+   max-width: 460px;
+}
+
+.formHeader {
+   margin-bottom: 28px;
+}
+
+.formTitle {
+   font-size: 28px;
+   font-weight: 800;
+   color: #111827;
+   margin: 0 0 6px;
+}
+
+.formSubtitle {
+   font-size: 14px;
+   color: #6b7280;
+   margin: 0;
+}
+
+/* ── Two-column row (first + last name) ─────────────────── */
+.nameRow {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 14px;
+}
+
+/* ── Error banner ──────────────────────────────────────── */
+.error {
+   display: flex;
+   align-items: flex-start;
+   gap: 8px;
+   background: #fef2f2;
+   border: 1px solid #fca5a5;
+   border-radius: 8px;
+   padding: 10px 14px;
+   color: #dc2626;
+   font-size: 13px;
+   font-weight: 500;
+   margin-top: 12px;
+   line-height: 1.5;
+}
+
+/* ── Bottom link ───────────────────────────────────────── */
+.bottomText {
+   margin-top: 20px;
+   text-align: center;
+   font-size: 14px;
+   color: #6b7280;
+}
+
+.bottomText a {
+   color: rgb(0, 147, 147);
+   font-weight: 600;
+   text-decoration: none;
+   margin-left: 4px;
+}
+
+.bottomText a:hover {
+   text-decoration: underline;
+}
+
+/* ── Terms note ────────────────────────────────────────── */
+.terms {
+   margin-top: 14px;
+   font-size: 12px;
+   color: #9ca3af;
+   text-align: center;
+   line-height: 1.5;
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 860px) {
+   .panel { display: none; }
+   .page  { background: #fff; }
+   .formSide { padding: 40px 20px; align-items: flex-start; padding-top: 48px; }
+}
+
+@media (max-width: 480px) {
+   .nameRow { grid-template-columns: 1fr; gap: 0; }
+   .formTitle { font-size: 24px; }
+   .formSide { padding: 32px 16px; }
+}

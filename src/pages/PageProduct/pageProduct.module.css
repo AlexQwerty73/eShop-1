@@ -1,4 +1,16 @@
-.img {
-   width: 400px;
-   background: violet;
+.pageProduct {
+   padding-bottom: 40px;
+}
+
+.recentSection {
+   margin-top: 40px;
+   padding-top: 20px;
+   border-top: 1px solid #e5e7eb;
+}
+
+.recentTitle {
+   font-size: 20px;
+   font-weight: 700;
+   color: #374151;
+   margin-bottom: 16px;
 }

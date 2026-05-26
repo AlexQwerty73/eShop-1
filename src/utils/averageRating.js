@@ -1,4 +1,5 @@
 export const averageRating = (product) => {
-   return product.reviews ? (product.reviews.reduce((a, b) => a + Number(b.stars), 0) / product.reviews.length).toFixed(2) : 0;
-
+   if (!product.reviews || product.reviews.length === 0) return 0;
+   const sum = product.reviews.reduce((a, b) => a + Number(b.stars), 0);
+   return parseFloat((sum / product.reviews.length).toFixed(2));
 }
